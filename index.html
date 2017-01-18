@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>7 Days to Die 音声データ差し替えガイド</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="7 Days to Die 音声データ差し替えガイド"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2017-01-19 00:16:52 JST"/>
+<meta name="author" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">7 Days to Die 音声データ差し替えガイド</h1>
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 はじめに</a></li>
+<li><a href="#sec-2">2 概要、想定読者</a></li>
+<li><a href="#sec-3">3 作業手順概説</a>
+<ul>
+<li><a href="#sec-3-1">3.1 SDX について</a></li>
+<li><a href="#sec-3-2">3.2 SDX のさらなる説明</a></li>
+<li><a href="#sec-3-3">3.3 対象バージョン</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 作成環境準備</a>
+<ul>
+<li><a href="#sec-4-1">4.1 7DTD ゲーム本体を配布状態に戻す（必須作業）</a></li>
+<li><a href="#sec-4-2">4.2 SDX の入手と設定する</a></li>
+<li><a href="#sec-4-3">4.3 Unity の開発環境を準備する</a></li>
+<li><a href="#sec-4-4">4.4 Unity から Asset をエクスポートするスクリプトを準備する</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 作成作業手順</a>
+<ul>
+<li><a href="#sec-5-1">5.1 名前を決める</a></li>
+<li><a href="#sec-5-2">5.2 音声データ作成する</a></li>
+<li><a href="#sec-5-3">5.3 Unity で AssetBundle にまとめあげる</a></li>
+<li><a href="#sec-5-4">5.4 MOD としてくみ上げる</a></li>
+<li><a href="#sec-5-5">5.5 SDX で 7DTD に取り込む</a></li>
+<li><a href="#sec-5-6">5.6 7DTD を実行して動作確認する</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 config.xml の記述</a>
+<ul>
+<li><a href="#sec-6-1">6.1 付属のテンプレートに沿った説明</a></li>
+<li><a href="#sec-6-2">6.2 技術背景分かる人向けの説明</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7 トラブルシュート, Tips</a>
+<ul>
+<li><a href="#sec-7-1">7.1 記述の間違えパターンごとの振る舞い</a>
+<ul>
+<li><a href="#sec-7-1-1">7.1.1 例示：XML ファイルとして整っていない場合</a></li>
+<li><a href="#sec-7-1-2">7.1.2 AudioClip の ClipName の値間違い</a></li>
+<li><a href="#sec-7-1-3">7.1.3 詳細記述：xpath の値間違え</a></li>
+<li><a href="#sec-7-1-4">7.1.4 xpath 指定値での記号抜け</a></li>
+</ul>
+</li>
+<li><a href="#sec-7-2">7.2 編集後の XML を確認すると良い（かもしれない）</a></li>
+<li><a href="#sec-7-3">7.3 sounds.xml との不整合</a></li>
+<li><a href="#sec-7-4">7.4 「Mods.dll が見つかりませんでした」（SDX 0.7.0）</a></li>
+</ul>
+</li>
+<li><a href="#sec-8">8 著作権・ライセンス表示</a></li>
+<li><a href="#sec-9">9 参考情報</a></li>
+<li><a href="#sec-10">10 （編集作業メモ）</a>
+<ul>
+<li><a href="#sec-10-1">10.1 音声の種類（SoundDataNode の name）のさらなる確認</a></li>
+<li><a href="#sec-10-2">10.2 靴音系の調査。</a></li>
+<li><a href="#sec-10-3">10.3 男性キャラ用の記述整備</a></li>
+<li><a href="#sec-10-4">10.4 要確認：複数 AudioClip element の一気削除は書けないのか？</a></li>
+<li><a href="#sec-10-5">10.5 「応用：他のサウンドを書き換える」というような項を執筆</a></li>
+<li><a href="#sec-10-6">10.6 SoundDataNode の他の要素の意味の解析</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> はじめに</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+この文章では、
+ゲーム「7 Days to Die」のプレイヤーの音声（着地,死亡,etc.したときの声）を差し替える方法について記述します。
+</p>
+<p>
+2017/1 現在、必要な情報は英語で断片的にしか流布していないようなので、
+音声差し替えに特化したガイドを書くことにしました。
+書き換えのサンプルファイル群（改変して使えるテンプレート）付属させているので、
+少しづつ変えながら設定を試してもらえると思います。
+</p>
+<p>
+作業は、設定ファイルを手書きしたり、Unity のアカウントを作る必要があったり、
+そもそも手順が多かったり、と、ちょっとばかり込み入っています。
+記述に沿っていけば作業できるようにとの狙いで書いていますが、このため、
+誰にでも分かるガイドにはなっていない点御容赦ください。
+</p>
+<p>
+この文章の記述内容は、役に立ちまた問題が無いと筆者は信じていますが、
+その性質上ゲームの正規の構成を書き換えることになり、その結果については無保証です。
+at your own risk での取り扱いをお願いします。
+試行錯誤した結果をまとめたものなので不必要なステップがあるかもしれません。
+情報が不完全である部分も有ります。間違いや補足情報があったら教えてもらえると嬉しいです。
+</p>
+<p>
+では良きサバイバルライフを！
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 概要、想定読者</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>以下 7 Days to Die を 7DTD と略記します。
+</p>
+<p>
+差し替える音声データは 7DTD の MOD として作成・導入します。
+よって作業は大きく分けて、MOD を作る、それを 7DTD に取り込んで使う、の二段階になります。
+</p>
+<p>
+MOD を作る段階では 7DTD が利用しているゲームエンジン Unity のツールを使います。
+が Unity の技術知識は必要ありません。
+ただし Unity の開発者アカウントを作る必要があり、このための英語は多少読める必要があります。
+</p>
+<p>
+ファイル操作、XMLファイル編集（テキストファイル編集）、音声データ加工などなどは前提知識として、
+細かい操作説明はしません。
+</p>
+<p>
+7DTD に取り込んで使う段階は他の MOD の利用と変わりないと共通事項ですが、この文書内で扱います。
+作った MOD を配布すれば付け替えた音声で他の人もプレイ出来ます。
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 作業手順概説</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+作業の手順は次のようになります。
+</p>
+<ol>
+<li>音声データ作成（wav 形式）
+</li>
+<li>Unity AssetBundle にまとめる（拡張子 .unity3d）
+</li>
+<li>MOD としてくみ上げる（7DTD の XML の変更内容記述）
+</li>
+<li>SDX でビルド
+</li>
+<li>ゲーム実行
+</li>
+</ol>
+
+
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> SDX について</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+SDX は ゲームエンジン Unity を使ったゲームで MOD を実現するためのツール（ないしはフレームワーク）です。
+<a href="http://sdxmod.com/">http://sdxmod.com/</a> で配布されています。
+</p>
+<p>
+7DTD の MOD にはその形態に幾つか種類があります。
+種類の一つとして「SDX を前提とした MOD」というものがあります。
+この形態の MOD では
+</p><ul>
+<li>複数の MOD を組み合わせて使う
+</li>
+<li>MOD を適用したり抜いたりする
+</li>
+</ul>
+
+<p>といったことが容易になります。
+</p>
+<p>
+音声差し替えに SDX は必須ではありませんが、何かと便利なので利用することにしました。
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> SDX のさらなる説明</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<p>私が理解した SDX の技術背景を、分かる人向けに端折って概説しますと：
+</p>
+<ul>
+<li>7 Days to Die は MOD 作成を意識して作られている。
+<ul>
+<li>ゲームパラメタの XML ファイルによる外部化
+</li>
+<li>フックポイントの整備、など
+</li>
+</ul>
+
+</li>
+<li>だが複数の MOD を作るための仕組みは備えていない。そこのところを何とかするのが SDX
+</li>
+<li>ある意味リンカのようなもの。
+<ul>
+<li>リンク結果として 7DTD のランタイムのファイル構成を書き換える
+</li>
+</ul>
+
+</li>
+<li>以下の機能を整備されているようだ。
+<ul>
+<li>オリジナルのバックアップ＆レストア
+</li>
+<li>実行前の XML ファイル編集
+</li>
+<li>実行前のパッチの適用（パッチは C# スクリプトとして書く模様）
+</li>
+<li>実行時の DLL ローディング
+</li>
+<li>リソース解決の仕組み
+</li>
+<li>フック関数の呼び出し
+</li>
+</ul>
+
+</li>
+<li>というわけで「ツール」ではなく「フレームワーク」と自称している模様。
+</li>
+</ul>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 対象バージョン</h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+<p>
+この文書の内容は 2017/1 現在での最新である以下の環境を前提としています。
+</p>
+<ul>
+<li>7 Days to Die: alpha 15.1
+</li>
+<li>SDX 0.7.0
+</li>
+<li>platform: Windows のみ
+</li>
+</ul>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 作成環境準備</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+まずは SDX を使った MOD を作成する環境を整える必要があります。
+</p>
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 7DTD ゲーム本体を配布状態に戻す（必須作業）</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<p>
+7DTD のファイルを SDX が前提としている状態に整えるために必要な処置。
+「インストールしたままなので変更無いはず」とスキップしてはいけない模様。
+念の為メモ：別途 MOD 導入していたなどの事情があって、その情報が必要なら事前にバックアップしておくこと。
+</p>
+<p>
+具体的な操作は以下：
+</p><ol>
+<li>Steam クライアントを起動
+</li>
+<li>「ライブラリ」メニュー「ゲーム」の中の「7 Days to Die」
+</li>
+<li>右クリックのメニューから「プロパティ」
+</li>
+<li>「ローカルファイル」タブの中の「ゲームキャッシュの整合性を確認&hellip;」ボタン
+</li>
+<li>ウィンドウが表示され Steam のサーバーと通信して必要に応じてファイルが書き換わる
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> SDX の入手と設定する</h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+<p>
+<a href="https://7daystodie.com/forums/showthread.php?57518-SDX-0-7-0-(Christmas-2016)">SDX のリリース案内</a> からたどれる
+<a href="http://sdxmod.com/builds/SDX_0.7.0.zip">http://sdxmod.com/builds/SDX_0.7.0.zip</a> から ZIP ファイルをダウンロードする。
+</p>
+<p>
+お好きな作業場所にこの zip を展開。この場所を以下の説明では ${SDX} と表記する。
+（セキュリティソフトが SDX のファイルについてウィルスの恐れありと警告したりファイル削除するかもしれない。
+無視させる設定をするなり、検疫からの復旧するなどの対処をすること。）
+</p>
+<p>
+${SDX}/SDXLauncher.exe を起動する。操作ウィンドウが表示される。
+SDX に対して Game Directory（7DTD のファイルの置き場所）を設定する。手順は以下
+</p><ol>
+<li>Steam クライアントで 7 Days to Die の Game Directory を確認する。
+   操作UIは以下：
+<ol>
+<li>Steam クライアントを起動
+</li>
+<li>「ライブラリ」メニュー「ゲーム」の中の「7 Days to Die」
+</li>
+<li>右クリックのメニューから「プロパティ」
+</li>
+<li>「ローカルファイル」タブの中の「ローカルファイルを閲覧&hellip;」ボタン
+</li>
+<li>エクスプローラーでフォルダが開かれる。パスをコピー。
+</li>
+</ol>
+
+</li>
+<li>SDX で「Settings」ボタンから「Game Directory」の欄に前述の場所をペースト。
+</li>
+<li>Save で保存
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Unity の開発環境を準備する</h3>
+<div class="outline-text-3" id="text-4-3">
+
+<p>7DTD alpha 15.1 が使っている Unity のバージョンに合わせて v5.3.3 を入手し、セットアップする。
+</p>
+<ol>
+<li><a href="https://unity3d.com/jp/get-unity/download/archive">旧バージョンのアーカイブ</a> から v5.3.3 の 「Unityエディター（64ビット）」をダウンロードする。
+</li>
+<li>EXE ファイルを実行してインストールする。
+</li>
+<li>インストールした Unity を起動する。
+</li>
+<li>Unity のアカウントへのログインが要求されるので、ログインないしはアカウント作成する。
+</li>
+</ol>
+
+
+
+<p>
+アカウントを作成する場合は以下：
+</p><ol>
+<li>Unity エディターを起動した画面で "create one" のリンクから Web ブラウザが起動する
+</li>
+<li>必要事項入力。
+</li>
+<li>確認メールが届くので、メールの中の URL へブラウザでアクセス、さらになんやかんや入力。
+</li>
+<li>license options は PERSONAL EDITION を選択する。
+</li>
+</ol>
+
+<p>（詳細が不明ならば「Unity インストール チュートリアル」などで検索して対処されたし。）
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Unity から Asset をエクスポートするスクリプトを準備する</h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+<p>
+Unity エディターを使って音声データを 7DTD が実行時に読み込める形式に加工できるようにする。
+具体的には、素材データ（Asset）をエクスポートする（書き出す）スクリプトを Unity のプロジェクトに取り込んでおく。
+</p>
+<p>
+手順：
+</p><ol>
+<li><a href="http://www.mediafire.com/download/jdjazca6giza4ol/ExportAssetBundles.cs">スクリプトのファイル</a> を入手。（この配布サイトは広告のウィンドウがポップアップするので、適宜閉じる）
+</li>
+<li>Unity で プロジェクトを作成する
+<ol>
+<li>Unity エディターを起動
+</li>
+<li>「NEW」ボタン （あるいは既に他のプロジェクトを開いているのであれば メニュー&gt;File&gt;New Project&hellip; ）
+</li>
+<li>名前と場所を適当に指定。3D/2D の選択は 3D で。
+</li>
+</ol>
+
+</li>
+<li>Unity の Project Window （ウィンドウ左下の方 Project タブ） の中の Assets を選択
+</li>
+<li>その右側の所（This folder is empty と表示されている）に先ほど入手した ExportAssetBundles.cs をドロップ。
+</li>
+<li>Assets のところの右クリックで "Assets/Build AssetBundle From Selection - Track dependencies" が出るのを確認。
+</li>
+</ol>
+
+
+<p>
+補足：
+</p><ul>
+<li>この準備は Unity のプロジェクトを作るたびに必要である。
+</li>
+<li>このスクリプトは SDX を使った MOD の作り方 HowTo 記事 <a href="https://7daystodie.com/forums/showthread.php?26996-SD2DX-How-To-Make-Mods">SD2DX-How-To-Make-Mods</a> から紹介されている。
+</li>
+<li>（ 参考 <a href="https://docs.unity3d.com/Manual/BuildingAssetBundles.html">https://docs.unity3d.com/Manual/BuildingAssetBundles.html</a> ）
+</li>
+</ul>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 作成作業手順</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+音声を差し替える MOD を作成する手順を説明します。
+</p>
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 名前を決める</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>自分が作る MOD の名前を決める。以下の例示では MyMod にしたとして記述する。
+</p>
+<p>
+MOD の中に収めるバンドル（ここでは音声データのパックしたもの）の名前を決める。
+MOD の名前と同じでも可。以下の例示では MyBundle として記述する。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> 音声データ作成する</h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+<p>
+差し替えたい音声を wav 形式で作成する。
+</p>
+<p>
+音声にどのような種類（ジャンプした時、暑い時、etc.）が有るかは、
+<a href="./PlayerVoicesTemplate/Configs/config.xml">添付のテンプレートの config.xml</a> や <a href="./sounds-name.html">一覧資料</a> を参照。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> Unity で AssetBundle にまとめあげる</h3>
+<div class="outline-text-3" id="text-5-3">
+
+
+<p>
+Unity で wav ファイルを 7DTD が実行時に読み込める形式に変換する。
+</p>
+<p>
+手順：
+</p><ol>
+<li>Unity エディターで<a href="#Unity-Asset">前述の ExportAssetBundles.cs を取り込んだプロジェクト</a>を開く。
+</li>
+<li>Assets の中にフォルダを作り、その名前をバンドルの名前にする。（例えば MyBundle）
+<ol>
+<li>Unity の画面左下 Assets で右クリック
+</li>
+<li>メニュー から 「Create&gt;Folder」を選択
+</li>
+<li>出来たフォルダの名前が反転しているので変更
+</li>
+</ol>
+
+</li>
+<li>このフォルダに用意した wav ファイルをドロップしていく。
+</li>
+<li>AssetBundle として 書き出す
+<ol>
+<li>MOD の名前にしたフォルダのところで右クリック
+</li>
+<li>メニュー項目 「Assets/Build AssetBundle From Selection - Track dependencies」 を選択
+</li>
+<li>保存する場所を適当に選択。
+</li>
+<li>「New Resource」 となっているファイル名をバンドルの名前（例えば MyBundle）にする。（←重要！）
+</li>
+<li>保存。（これで音声データをパックした MyBundle.unity3d が生成された。）
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> MOD としてくみ上げる</h3>
+<div class="outline-text-3" id="text-5-4">
+
+
+<ol>
+<li>MOD のテンプレートを SDX の管理下に配置する
+<ol>
+<li>SDX で 「Mods Folder」 ボタンを押す。
+</li>
+<li>${SDX}\Targets\7DaysToDie\Mods フォルダが作られる。エクスプローラーが開く。
+</li>
+<li>添付の MOD テンプレート（PlayerVoicesTemplate フォルダ）をこの Mods にコピーする
+</li>
+<li>フォルダ名をこれから作成する MOD 名（今の例では MyMod）に変更する。以下このフォルダの場所は ${MyMod} と表記する。
+</li>
+<li>（このフォルダ名は何でも良いようだが MOD 名にしておくのが混乱しないだろう。）
+</li>
+</ol>
+
+</li>
+<li>${MyMod}/mod.xml を編集する
+<ol>
+<li>author（作者）, name（MOD の名前）,mod_version（MOD のバージョン）, description（MOD の内容説明） を適宜編集。
+</li>
+<li>SDX （SDXLauncher.exe）を再起動すると、Mods タブにこの MyMod が現れる。
+</li>
+<li>（見て分かるように、mod.xml の内容は SDX での表示に使われる）
+</li>
+<li>（ちなみに game_version は 7DTD のバージョン、launcher_version は SDX のバージョン）
+</li>
+</ol>
+
+</li>
+<li>音声データの MOD への取り込み
+<ol>
+<li><a href="#Unity-AssetBundle-MyMod.unity3d">前述の手順</a>で作成した AssetBundle（MyBundle.unity3dファイル） を ${MyMod}/Resources フォルダの中に置く。
+</li>
+</ol>
+
+</li>
+<li>音声データとゲーム中のアクションの対応付けを記述する
+<ol>
+<li>${MyMod}/Configs/config.xml を編集する。（<a href="#sec-6">記述方法は別記</a>）
+</li>
+</ol>
+
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> SDX で 7DTD に取り込む</h3>
+<div class="outline-text-3" id="text-5-5">
+
+
+<ol>
+<li>SDX のウィンドウで「Build」ボタンをおす
+</li>
+<li>エラー表示が無いことを確認する。エラーが起きたら config.xml の編集にもどる。（あるいは Assets の中身を確認）
+</li>
+</ol>
+
+
+<p>
+なお SDX 0.7.0 で 「ERROR: No assembly from BuildAndRunPatchModsTask」という表示は正常。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> 7DTD を実行して動作確認する</h3>
+<div class="outline-text-3" id="text-5-6">
+
+
+<ol>
+<li>SDX のウィンドウで「Play」ボタンを押す。7DTD が起動する。
+</li>
+<li>ゲームをプレイして挿し換わっていることを確認する。
+</li>
+</ol>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> config.xml の記述</h2>
+<div class="outline-text-2" id="text-6">
+
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> 付属のテンプレートに沿った説明</h3>
+<div class="outline-text-3" id="text-6-1">
+
+
+<p>
+<a href="#sec-5-4">前述した手順</a>の中の ${MyMod}/Configs/config.xml の記述方法の詳細を、
+<a href="./PlayerVoicesTemplate/Configs/config.xml">付属のテンプレートの config.xml</a> を元にして説明します。
+</p>
+<p>
+例えば次の塊が、一つの音声（サウンド）の差し替えを定義しています。
+</p>
+<pre class="example">
+    &lt;!-- player2jump: ジャンプの声 --&gt;
+    &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
+    &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
+    &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
+    &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
+    &lt;append xpath="/Sounds/SoundDataNode[@name='player2jump']" &gt;
+      &lt;AudioClip ClipName="#FooBundle?num001_01"/&gt;
+      &lt;AudioClip ClipName="#FooBundle?num002_01"/&gt;
+      &lt;AudioClip ClipName="#FooBundle?num003_01"/&gt;
+    &lt;/append&gt;
+</pre>
+
+
+<p>
+「&lt;!&ndash;」と「&ndash;&gt;」に囲まれた範囲（複数行可）は、SDX は読み飛ばす人間向けのメモ書き（コメント）です。
+</p>
+<p>
+音声は種類ごとに名前が決まっています。
+上記の例は「player2jump」という名前の音声設定を書き換えています。
+</p>
+<p>
+「player2jump」は、女性プレイヤーキャラクタがジャンプした時の声です。
+<a href="./sounds-name.html">sounds-name.html</a> に判明した範囲で名前と「どこで使われる音か」を記しました。
+</p>
+
+<pre class="example">
+      &lt;AudioClip ClipName="#FooBundle?num001_01"/&gt;
+</pre>
+
+<p>の部分が使用する音声データを指定しています。
+バンドル名「FooBundle」に含まれる「num001_01.wav」を使用することを指定しています。
+このように
+</p><ul>
+<li>シャープ
+</li>
+<li>AssetBundle の名前
+</li>
+<li>ハテナ
+</li>
+<li>wavファイル名の拡張子を除いた部分
+</li>
+</ul>
+
+<p>を連ねて書きます。
+</p>
+<p>
+テンプレートには AssetBundle として Resources/FooBundle.unity3d が格納されているので、
+この例ではこの部分は FooBundle になっています。
+ご自分の MOD を作る際には自分で作ったバンドル名に（例えば MyBundle）してください。
+</p>
+<p>
+この AudioClip を複数並べると、発音のたびに複数の音声データの中からひとつがランダムに選ばれて使われます。
+</p>
+<pre class="example">
+    &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
+</pre>
+
+<p>の行はデフォルトの AudioClip を取り除く（使用しない）ようにする指定です。
+7DTD のオリジナルの設定では player2jump には４種類の音声データが指定されているので、
+この remove の行を４回書いています。
+</p>
+<p>
+（オリジナルの設定で何個の指定があるかは 
+${SDX}/Backups/7 Days To Die/Data/Config/sounds.xml を見ると分かります。）
+</p>
+<p>
+（ xpath の仕様からすると複数回書かなくても良さそうなものなのだが、
+どうやら該当する一つ目のノードにだけ作用するらしい。）
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> 技術背景分かる人向けの説明</h3>
+<div class="outline-text-3" id="text-6-2">
+
+
+<ul>
+<li>config.xml は mod.xml から import されている
+</li>
+<li>XML config 要素は 7DTD の XML の DOM 書き換え操作を記述する。
+</li>
+<li>config 要素の name は XML ファイル名に対応している。
+<ul>
+<li>remove 要素は DOM から element を削除する操作指示
+</li>
+<li>その xpath は削除する element を指す。
+</li>
+</ul>
+
+</li>
+<li>append は要素の追加指示。
+</li>
+<li>他は SDX のドキュメントや <a href="https://7daystodie.com/forums/showthread.php?41047-Guide-SDX-How-to-write-your-own-configuration-file">https://7daystodie.com/forums/showthread.php?41047-Guide-SDX-How-to-write-your-own-configuration-file</a> などを参照
+</li>
+<li>/Sounds/SoundDataNode が音の種類ごとに、発声データを記述している。
+<ul>
+<li>その中の AudioClip が波形データ
+</li>
+<li>SoundDataNode には他のパラメタもある
+<ul>
+<li>AudioSource: 音源の名前（おそらくゲームの3D空間でのシミュレートをするためのもの）
+</li>
+<li>LocalCrouchVolumeScale, runningvolumescale 相対ボリューム？
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> トラブルシュート, Tips</h2>
+<div class="outline-text-2" id="text-7">
+
+
+
+</div>
+
+<div id="outline-container-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> 記述の間違えパターンごとの振る舞い</h3>
+<div class="outline-text-3" id="text-7-1">
+
+
+<p>
+XML ファイルの記述を間違えるとエラーになる。
+間違え方によって色々な反応のパターンがある。
+</p>
+
+</div>
+
+<div id="outline-container-7-1-1" class="outline-4">
+<h4 id="sec-7-1-1"><span class="section-number-4">7.1.1</span> <span class="todo TODO">TODO</span> 例示：XML ファイルとして整っていない場合</h4>
+<div class="outline-text-4" id="text-7-1-1">
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-1-2" class="outline-4">
+<h4 id="sec-7-1-2"><span class="section-number-4">7.1.2</span> AudioClip の ClipName の値間違い</h4>
+<div class="outline-text-4" id="text-7-1-2">
+
+
+<p>
+${SDX}/AudioLog.txt にエラーログが出る。
+</p><pre class="example">
+AudioManager::AudioData::Play() - failed to load audio clip #FooBundle?notexist.
+</pre>
+
+
+<p>
+また、7DTD ゲーム中 F1 キーで表示されるコンソールにもエラー表示される。
+</p><pre class="example">
+SDX: Could not find asset 'notexist'
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7-1-3" class="outline-4">
+<h4 id="sec-7-1-3"><span class="section-number-4">7.1.3</span> <span class="todo TODO">TODO</span> 詳細記述：xpath の値間違え</h4>
+<div class="outline-text-4" id="text-7-1-3">
+
+<p>xpath の記述は大文字小文字の違いが考慮されるので注意。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7-1-4" class="outline-4">
+<h4 id="sec-7-1-4"><span class="section-number-4">7.1.4</span> xpath 指定値での記号抜け</h4>
+<div class="outline-text-4" id="text-7-1-4">
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7-2" class="outline-3">
+<h3 id="sec-7-2"><span class="section-number-3">7.2</span> 編集後の XML を確認すると良い（かもしれない）</h3>
+<div class="outline-text-3" id="text-7-2">
+
+<p>Game Directory で指定した場所の /Data/Config/sounds.xml
+に書き換わった XML ファイルが作成される
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7-3" class="outline-3">
+<h3 id="sec-7-3"><span class="section-number-3">7.3</span> sounds.xml との不整合</h3>
+<div class="outline-text-3" id="text-7-3">
+
+<p>将来の版ではデフォルトの sounds.xml の内容が変化するかもしれない。
+（SoundDataNode の名前（name 属性）が変ったり AudioClip の数が変更されたり。）
+その場合 SDX での Build 中にエラーが出るので、調節する。
+他の MOD を併用している場合に同様の問題が
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-7-4" class="outline-3">
+<h3 id="sec-7-4"><span class="section-number-3">7.4</span> 「Mods.dll が見つかりませんでした」（SDX 0.7.0）</h3>
+<div class="outline-text-3" id="text-7-4">
+
+<p>MOD のスクリプトが一つも入っていないと Mods.dll が見つかりませんでした、というエラーメッセージが起きる。
+これは SDX の不具合と思われる。
+このテンプレートでは回避するために空っぽのスクリプトを同梱している。
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> 著作権・ライセンス表示</h2>
+<div class="outline-text-2" id="text-8">
+
+
+<p>
+付属の MOD テンプレートには「あみたろの声素材工房」の声素材が含まれています。
+<a href="http://www14.big.or.jp/~amiami/happy/">http://www14.big.or.jp/~amiami/happy/</a>
+</p>
+<p>
+この文書自身には The MIT License を適用します。
+</p>
+<p>
+Copyright 2017 naqtn (<a href="https://github.com/naqtn">https://github.com/naqtn</a>)
+
+</p>
+<hr/>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a copy of 
+this software and associated documentation files (the "Software"), to deal in 
+the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+of the Software, and to permit persons to whom the Software is furnished to do 
+so, subject to the following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> 参考情報</h2>
+<div class="outline-text-2" id="text-9">
+
+
+<ul>
+<li>SDX （本家） <a href="http://sdxmod.com/">http://sdxmod.com/</a>
+</li>
+<li>SDX の使い方解説記事記事： <a href="https://7daystodie.com/forums/showthread.php?26996-SD2DX-How-To-Make-Mods">https://7daystodie.com/forums/showthread.php?26996-SD2DX-How-To-Make-Mods</a>
+<ul>
+<li>SDX のバージョンアップに伴って少し違うところが出てきているが大筋は有効。
+</li>
+<li>フォーラム中でも頻繁にポイントされている記事。
+</li>
+</ul>
+
+</li>
+<li><a href="http://wikiwiki.jp/7daystodie/?MOD">http://wikiwiki.jp/7daystodie/?MOD</a>
+</li>
+<li><a href="http://www4.hp-ez.com/hp/maikurahitobashira/7daystodie">http://www4.hp-ez.com/hp/maikurahitobashira/7daystodie</a>
+</li>
+</ul>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> （編集作業メモ）</h2>
+<div class="outline-text-2" id="text-10">
+
+<p>以下は、この文章自身の作業用メモです。
+文書の状態が他の人にも分かるようにここに記しておきます。
+</p>
+
+</div>
+
+<div id="outline-container-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> <span class="todo TODO">TODO</span> 音声の種類（SoundDataNode の name）のさらなる確認</h3>
+<div class="outline-text-3" id="text-10-1">
+
+</div>
+
+</div>
+
+<div id="outline-container-10-2" class="outline-3">
+<h3 id="sec-10-2"><span class="section-number-3">10.2</span> <span class="todo TODO">TODO</span> 靴音系の調査。</h3>
+<div class="outline-text-3" id="text-10-2">
+
+</div>
+
+</div>
+
+<div id="outline-container-10-3" class="outline-3">
+<h3 id="sec-10-3"><span class="section-number-3">10.3</span> <span class="todo TODO">TODO</span> 男性キャラ用の記述整備</h3>
+<div class="outline-text-3" id="text-10-3">
+
+</div>
+
+</div>
+
+<div id="outline-container-10-4" class="outline-3">
+<h3 id="sec-10-4"><span class="section-number-3">10.4</span> <span class="todo TODO">TODO</span> 要確認：複数 AudioClip element の一気削除は書けないのか？</h3>
+<div class="outline-text-3" id="text-10-4">
+
+<p>複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
+SDX のフォーラムで確認する？
+</p></div>
+
+</div>
+
+<div id="outline-container-10-5" class="outline-3">
+<h3 id="sec-10-5"><span class="section-number-3">10.5</span> <span class="todo TODO">TODO</span> 「応用：他のサウンドを書き換える」というような項を執筆</h3>
+<div class="outline-text-3" id="text-10-5">
+
+</div>
+
+</div>
+
+<div id="outline-container-10-6" class="outline-3">
+<h3 id="sec-10-6"><span class="section-number-3">10.6</span> <span class="todo TODO">TODO</span> SoundDataNode の他の要素の意味の解析</h3>
+<div class="outline-text-3" id="text-10-6">
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2017-01-19 00:16:52 JST</p>
+<p class="author">Author: </p>
+<p class="creator">Org version 7.8.11 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

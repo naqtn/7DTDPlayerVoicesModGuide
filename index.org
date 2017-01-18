@@ -1,0 +1,400 @@
+#+OPTIONS: ^:{}
+
+7 Days to Die 音声データ差し替えガイド
+
+* はじめに
+
+この文章では、
+ゲーム「7 Days to Die」のプレイヤーの音声（着地,死亡,etc.したときの声）を差し替える方法について記述します。
+
+2017/1 現在、必要な情報は英語で断片的にしか流布していないようなので、
+音声差し替えに特化したガイドを書くことにしました。
+書き換えのサンプルファイル群（改変して使えるテンプレート）付属させているので、
+少しづつ変えながら設定を試してもらえると思います。
+
+作業は、設定ファイルを手書きしたり、Unity のアカウントを作る必要があったり、
+そもそも手順が多かったり、と、ちょっとばかり込み入っています。
+記述に沿っていけば作業できるようにとの狙いで書いていますが、このため、
+誰にでも分かるガイドにはなっていない点御容赦ください。
+
+この文章の記述内容は、役に立ちまた問題が無いと筆者は信じていますが、
+その性質上ゲームの正規の構成を書き換えることになり、その結果については無保証です。
+at your own risk での取り扱いをお願いします。
+試行錯誤した結果をまとめたものなので不必要なステップがあるかもしれません。
+情報が不完全である部分も有ります。間違いや補足情報があったら教えてもらえると嬉しいです。
+
+では良きサバイバルライフを！
+
+
+* 概要、想定読者
+以下 7 Days to Die を 7DTD と略記します。
+
+差し替える音声データは 7DTD の MOD として作成・導入します。
+よって作業は大きく分けて、MOD を作る、それを 7DTD に取り込んで使う、の二段階になります。
+
+MOD を作る段階では 7DTD が利用しているゲームエンジン Unity のツールを使います。
+が Unity の技術知識は必要ありません。
+ただし Unity の開発者アカウントを作る必要があり、このための英語は多少読める必要があります。
+
+ファイル操作、XMLファイル編集（テキストファイル編集）、音声データ加工などなどは前提知識として、
+細かい操作説明はしません。
+
+7DTD に取り込んで使う段階は他の MOD の利用と変わりないと共通事項ですが、この文書内で扱います。
+作った MOD を配布すれば付け替えた音声で他の人もプレイ出来ます。
+
+
+* 作業手順概説
+
+作業の手順は次のようになります。
+
+1. 音声データ作成（wav 形式）
+2. Unity AssetBundle にまとめる（拡張子 .unity3d）
+3. MOD としてくみ上げる（7DTD の XML の変更内容記述）
+4. SDX でビルド
+5. ゲーム実行
+
+
+** SDX について
+
+SDX は ゲームエンジン Unity を使ったゲームで MOD を実現するためのツール（ないしはフレームワーク）です。
+[[http://sdxmod.com/]] で配布されています。
+
+7DTD の MOD にはその形態に幾つか種類があります。
+種類の一つとして「SDX を前提とした MOD」というものがあります。
+この形態の MOD では
+- 複数の MOD を組み合わせて使う
+- MOD を適用したり抜いたりする
+といったことが容易になります。
+
+音声差し替えに SDX は必須ではありませんが、何かと便利なので利用することにしました。
+
+
+** SDX のさらなる説明
+私が理解した SDX の技術背景を、分かる人向けに端折って概説しますと：
+ 
+- 7 Days to Die は MOD 作成を意識して作られている。
+  - ゲームパラメタの XML ファイルによる外部化
+  - フックポイントの整備、など
+- だが複数の MOD を作るための仕組みは備えていない。そこのところを何とかするのが SDX
+- ある意味リンカのようなもの。
+  - リンク結果として 7DTD のランタイムのファイル構成を書き換える
+- 以下の機能を整備されているようだ。
+  - オリジナルのバックアップ＆レストア
+  - 実行前の XML ファイル編集
+  - 実行前のパッチの適用（パッチは C# スクリプトとして書く模様）
+  - 実行時の DLL ローディング
+  - リソース解決の仕組み
+  - フック関数の呼び出し
+- というわけで「ツール」ではなく「フレームワーク」と自称している模様。
+
+
+** 対象バージョン
+
+この文書の内容は 2017/1 現在での最新である以下の環境を前提としています。
+
+- 7 Days to Die: alpha 15.1
+- SDX 0.7.0
+- platform: Windows のみ
+
+
+
+* 作成環境準備
+
+まずは SDX を使った MOD を作成する環境を整える必要があります。
+
+** 7DTD ゲーム本体を配布状態に戻す（必須作業）
+
+7DTD のファイルを SDX が前提としている状態に整えるために必要な処置。
+「インストールしたままなので変更無いはず」とスキップしてはいけない模様。
+念の為メモ：別途 MOD 導入していたなどの事情があって、その情報が必要なら事前にバックアップしておくこと。
+
+具体的な操作は以下：
+1. Steam クライアントを起動
+2. 「ライブラリ」メニュー「ゲーム」の中の「7 Days to Die」
+3. 右クリックのメニューから「プロパティ」
+4. 「ローカルファイル」タブの中の「ゲームキャッシュの整合性を確認...」ボタン
+5. ウィンドウが表示され Steam のサーバーと通信して必要に応じてファイルが書き換わる
+
+** SDX の入手と設定する
+
+[[https://7daystodie.com/forums/showthread.php?57518-SDX-0-7-0-(Christmas-2016)][SDX のリリース案内]] からたどれる
+[[http://sdxmod.com/builds/SDX_0.7.0.zip]] から ZIP ファイルをダウンロードする。
+
+お好きな作業場所にこの zip を展開。この場所を以下の説明では ${SDX} と表記する。
+（セキュリティソフトが SDX のファイルについてウィルスの恐れありと警告したりファイル削除するかもしれない。
+無視させる設定をするなり、検疫からの復旧するなどの対処をすること。）
+
+${SDX}/SDXLauncher.exe を起動する。操作ウィンドウが表示される。
+SDX に対して Game Directory（7DTD のファイルの置き場所）を設定する。手順は以下
+1. Steam クライアントで 7 Days to Die の Game Directory を確認する。
+   操作UIは以下：
+   1. Steam クライアントを起動
+   2. 「ライブラリ」メニュー「ゲーム」の中の「7 Days to Die」
+   3. 右クリックのメニューから「プロパティ」
+   4. 「ローカルファイル」タブの中の「ローカルファイルを閲覧...」ボタン
+   5. エクスプローラーでフォルダが開かれる。パスをコピー。
+2. SDX で「Settings」ボタンから「Game Directory」の欄に前述の場所をペースト。
+3. Save で保存
+
+** Unity の開発環境を準備する
+7DTD alpha 15.1 が使っている Unity のバージョンに合わせて v5.3.3 を入手し、セットアップする。
+
+1. [[https://unity3d.com/jp/get-unity/download/archive][旧バージョンのアーカイブ]] から v5.3.3 の 「Unityエディター（64ビット）」をダウンロードする。
+2. EXE ファイルを実行してインストールする。
+3. インストールした Unity を起動する。
+4. Unity のアカウントへのログインが要求されるので、ログインないしはアカウント作成する。
+
+
+アカウントを作成する場合は以下：
+1. Unity エディターを起動した画面で "create one" のリンクから Web ブラウザが起動する
+2. 必要事項入力。
+3. 確認メールが届くので、メールの中の URL へブラウザでアクセス、さらになんやかんや入力。
+4. license options は PERSONAL EDITION を選択する。
+（詳細が不明ならば「Unity インストール チュートリアル」などで検索して対処されたし。）
+
+** Unity から Asset をエクスポートするスクリプトを準備する
+
+Unity エディターを使って音声データを 7DTD が実行時に読み込める形式に加工できるようにする。
+具体的には、素材データ（Asset）をエクスポートする（書き出す）スクリプトを Unity のプロジェクトに取り込んでおく。
+
+手順：
+1. [[http://www.mediafire.com/download/jdjazca6giza4ol/ExportAssetBundles.cs][スクリプトのファイル]] を入手。（この配布サイトは広告のウィンドウがポップアップするので、適宜閉じる）
+2. Unity で プロジェクトを作成する
+   1. Unity エディターを起動
+   2. 「NEW」ボタン （あるいは既に他のプロジェクトを開いているのであれば メニュー>File>New Project... ）
+   3. 名前と場所を適当に指定。3D/2D の選択は 3D で。
+3. Unity の Project Window （ウィンドウ左下の方 Project タブ） の中の Assets を選択
+4. その右側の所（This folder is empty と表示されている）に先ほど入手した ExportAssetBundles.cs をドロップ。
+5. Assets のところの右クリックで "Assets/Build AssetBundle From Selection - Track dependencies" が出るのを確認。
+
+補足：
+- この準備は Unity のプロジェクトを作るたびに必要である。
+- このスクリプトは SDX を使った MOD の作り方 HowTo 記事 [[https://7daystodie.com/forums/showthread.php?26996-SD2DX-How-To-Make-Mods][SD2DX-How-To-Make-Mods]] から紹介されている。
+- （ 参考 https://docs.unity3d.com/Manual/BuildingAssetBundles.html ）
+
+
+* 作成作業手順
+
+音声を差し替える MOD を作成する手順を説明します。
+
+** 名前を決める
+自分が作る MOD の名前を決める。以下の例示では MyMod にしたとして記述する。
+
+MOD の中に収めるバンドル（ここでは音声データのパックしたもの）の名前を決める。
+MOD の名前と同じでも可。以下の例示では MyBundle として記述する。
+
+** 音声データ作成する
+
+差し替えたい音声を wav 形式で作成する。
+
+音声にどのような種類（ジャンプした時、暑い時、etc.）が有るかは、
+[[./PlayerVoicesTemplate/Configs/config.xml][添付のテンプレートの config.xml]] や [[./sounds-name.html][一覧資料]] を参照。
+
+** Unity で AssetBundle にまとめあげる
+
+Unity で wav ファイルを 7DTD が実行時に読み込める形式に変換する。
+
+手順：
+1. Unity エディターで[[*Unity%20%E3%81%8B%E3%82%89%20Asset%20%E3%82%92%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%82%92%E6%BA%96%E5%82%99][前述の ExportAssetBundles.cs を取り込んだプロジェクト]]を開く。
+2. Assets の中にフォルダを作り、その名前をバンドルの名前にする。（例えば MyBundle）
+   1. Unity の画面左下 Assets で右クリック
+   2. メニュー から 「Create>Folder」を選択
+   3. 出来たフォルダの名前が反転しているので変更
+3. このフォルダに用意した wav ファイルをドロップしていく。
+4. AssetBundle として 書き出す
+   1. MOD の名前にしたフォルダのところで右クリック
+   2. メニュー項目 「Assets/Build AssetBundle From Selection - Track dependencies」 を選択
+   3. 保存する場所を適当に選択。
+   4. 「New Resource」 となっているファイル名をバンドルの名前（例えば MyBundle）にする。（←重要！）
+   5. 保存。（これで音声データをパックした MyBundle.unity3d が生成された。）
+
+** MOD としてくみ上げる
+
+1. MOD のテンプレートを SDX の管理下に配置する
+   1. SDX で 「Mods Folder」 ボタンを押す。
+   2. ${SDX}\Targets\7DaysToDie\Mods フォルダが作られる。エクスプローラーが開く。
+   3. 添付の MOD テンプレート（PlayerVoicesTemplate フォルダ）をこの Mods にコピーする
+   4. フォルダ名をこれから作成する MOD 名（今の例では MyMod）に変更する。以下このフォルダの場所は ${MyMod} と表記する。
+   5. （このフォルダ名は何でも良いようだが MOD 名にしておくのが混乱しないだろう。）
+2. ${MyMod}/mod.xml を編集する
+   1. author（作者）, name（MOD の名前）,mod_version（MOD のバージョン）, description（MOD の内容説明） を適宜編集。
+   2. SDX （SDXLauncher.exe）を再起動すると、Mods タブにこの MyMod が現れる。
+   3. （見て分かるように、mod.xml の内容は SDX での表示に使われる）
+   4. （ちなみに game_version は 7DTD のバージョン、launcher_version は SDX のバージョン）
+3. 音声データの MOD への取り込み
+   1. [[*Unity%20%E3%81%A7%20AssetBundle%20%E3%81%AB%E3%81%BE%E3%81%A8%E3%82%81%E3%81%82%E3%81%92%E3%82%8B%EF%BC%88MyMod.unity3d%20%E3%81%AE%E4%BD%9C%E6%88%90%EF%BC%89][前述の手順]]で作成した AssetBundle（MyBundle.unity3dファイル） を ${MyMod}/Resources フォルダの中に置く。
+4. 音声データとゲーム中のアクションの対応付けを記述する
+   1. ${MyMod}/Configs/config.xml を編集する。（[[*config.xml%20%E3%81%AE%E8%A8%98%E8%BF%B0][記述方法は別記]]）
+
+** SDX で 7DTD に取り込む
+
+1. SDX のウィンドウで「Build」ボタンをおす
+2. エラー表示が無いことを確認する。エラーが起きたら config.xml の編集にもどる。（あるいは Assets の中身を確認）
+
+なお SDX 0.7.0 で 「ERROR: No assembly from BuildAndRunPatchModsTask」という表示は正常。
+
+** 7DTD を実行して動作確認する
+
+1. SDX のウィンドウで「Play」ボタンを押す。7DTD が起動する。
+2. ゲームをプレイして挿し換わっていることを確認する。
+
+
+* config.xml の記述
+
+** 付属のテンプレートに沿った説明
+
+[[*MOD%20%E3%81%A8%E3%81%97%E3%81%A6%E3%81%8F%E3%81%BF%E4%B8%8A%E3%81%92%E3%82%8B][前述した手順]]の中の ${MyMod}/Configs/config.xml の記述方法の詳細を、
+[[./PlayerVoicesTemplate/Configs/config.xml][付属のテンプレートの config.xml]] を元にして説明します。
+
+例えば次の塊が、一つの音声（サウンド）の差し替えを定義しています。
+
+:     <!-- player2jump: ジャンプの声 -->
+:     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+:     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+:     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+:     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+:     <append xpath="/Sounds/SoundDataNode[@name='player2jump']" >
+:       <AudioClip ClipName="#FooBundle?num001_01"/>
+:       <AudioClip ClipName="#FooBundle?num002_01"/>
+:       <AudioClip ClipName="#FooBundle?num003_01"/>
+:     </append>
+
+「<!--」と「-->」に囲まれた範囲（複数行可）は、SDX は読み飛ばす人間向けのメモ書き（コメント）です。
+
+音声は種類ごとに名前が決まっています。
+上記の例は「player2jump」という名前の音声設定を書き換えています。
+
+「player2jump」は、女性プレイヤーキャラクタがジャンプした時の声です。
+[[./sounds-name.html][sounds-name.html]] に判明した範囲で名前と「どこで使われる音か」を記しました。
+
+
+:       <AudioClip ClipName="#FooBundle?num001_01"/>
+の部分が使用する音声データを指定しています。
+バンドル名「FooBundle」に含まれる「num001_01.wav」を使用することを指定しています。
+このように
+- シャープ
+- AssetBundle の名前
+- ハテナ
+- wavファイル名の拡張子を除いた部分
+を連ねて書きます。
+
+テンプレートには AssetBundle として Resources/FooBundle.unity3d が格納されているので、
+この例ではこの部分は FooBundle になっています。
+ご自分の MOD を作る際には自分で作ったバンドル名に（例えば MyBundle）してください。
+
+この AudioClip を複数並べると、発音のたびに複数の音声データの中からひとつがランダムに選ばれて使われます。
+
+:     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+の行はデフォルトの AudioClip を取り除く（使用しない）ようにする指定です。
+7DTD のオリジナルの設定では player2jump には４種類の音声データが指定されているので、
+この remove の行を４回書いています。
+
+（オリジナルの設定で何個の指定があるかは 
+${SDX}/Backups/7 Days To Die/Data/Config/sounds.xml を見ると分かります。）
+
+（ xpath の仕様からすると複数回書かなくても良さそうなものなのだが、
+どうやら該当する一つ目のノードにだけ作用するらしい。）
+
+
+** 技術背景分かる人向けの説明
+
+- config.xml は mod.xml から import されている
+- XML config 要素は 7DTD の XML の DOM 書き換え操作を記述する。
+- config 要素の name は XML ファイル名に対応している。
+  - remove 要素は DOM から element を削除する操作指示
+  - その xpath は削除する element を指す。
+- append は要素の追加指示。
+- 他は SDX のドキュメントや https://7daystodie.com/forums/showthread.php?41047-Guide-SDX-How-to-write-your-own-configuration-file などを参照
+- /Sounds/SoundDataNode が音の種類ごとに、発声データを記述している。
+  - その中の AudioClip が波形データ
+  - SoundDataNode には他のパラメタもある
+    - AudioSource: 音源の名前（おそらくゲームの3D空間でのシミュレートをするためのもの）
+    - LocalCrouchVolumeScale, runningvolumescale 相対ボリューム？
+
+* トラブルシュート, Tips
+
+** 記述の間違えパターンごとの振る舞い
+
+XML ファイルの記述を間違えるとエラーになる。
+間違え方によって色々な反応のパターンがある。
+
+*** TODO 例示：XML ファイルとして整っていない場合
+
+*** AudioClip の ClipName の値間違い
+
+${SDX}/AudioLog.txt にエラーログが出る。
+: AudioManager::AudioData::Play() - failed to load audio clip #FooBundle?notexist.
+
+また、7DTD ゲーム中 F1 キーで表示されるコンソールにもエラー表示される。
+: SDX: Could not find asset 'notexist'
+
+*** TODO 詳細記述：xpath の値間違え
+xpath の記述は大文字小文字の違いが考慮されるので注意。
+
+*** xpath 指定値での記号抜け
+
+** 編集後の XML を確認すると良い（かもしれない）
+Game Directory で指定した場所の /Data/Config/sounds.xml
+に書き換わった XML ファイルが作成される
+
+** sounds.xml との不整合
+将来の版ではデフォルトの sounds.xml の内容が変化するかもしれない。
+（SoundDataNode の名前（name 属性）が変ったり AudioClip の数が変更されたり。）
+その場合 SDX での Build 中にエラーが出るので、調節する。
+他の MOD を併用している場合に同様の問題が
+
+** 「Mods.dll が見つかりませんでした」（SDX 0.7.0）
+MOD のスクリプトが一つも入っていないと Mods.dll が見つかりませんでした、というエラーメッセージが起きる。
+これは SDX の不具合と思われる。
+このテンプレートでは回避するために空っぽのスクリプトを同梱している。
+
+
+* 著作権・ライセンス表示
+
+付属の MOD テンプレートには「あみたろの声素材工房」の声素材が含まれています。
+http://www14.big.or.jp/~amiami/happy/
+
+この文書自身には The MIT License を適用します。
+
+Copyright 2017 naqtn (https://github.com/naqtn)
+--------------------------------------------------------------------------------
+Permission is hereby granted, free of charge, to any person obtaining a copy of 
+this software and associated documentation files (the "Software"), to deal in 
+the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+of the Software, and to permit persons to whom the Software is furnished to do 
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+* 参考情報
+
+- SDX （本家） http://sdxmod.com/
+- SDX の使い方解説記事記事： https://7daystodie.com/forums/showthread.php?26996-SD2DX-How-To-Make-Mods
+  - SDX のバージョンアップに伴って少し違うところが出てきているが大筋は有効。
+  - フォーラム中でも頻繁にポイントされている記事。
+- http://wikiwiki.jp/7daystodie/?MOD
+- http://www4.hp-ez.com/hp/maikurahitobashira/7daystodie
+
+
+* （編集作業メモ）
+以下は、この文章自身の作業用メモです。
+文書の状態が他の人にも分かるようにここに記しておきます。
+
+** TODO 音声の種類（SoundDataNode の name）のさらなる確認
+** TODO 靴音系の調査。
+** TODO 男性キャラ用の記述整備
+** TODO 要確認：複数 AudioClip element の一気削除は書けないのか？ 
+複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
+SDX のフォーラムで確認する？
+** TODO 「応用：他のサウンドを書き換える」というような項を執筆
+** TODO SoundDataNode の他の要素の意味の解析

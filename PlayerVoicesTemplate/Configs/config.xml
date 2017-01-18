@@ -1,0 +1,244 @@
+<configs>
+
+  <!-- 女性プレイヤーキャラクターのサウンド変更 -->
+  <config name="sounds">
+
+    <!-- player2jump: ジャンプの声 -->
+    <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2jump']" >
+      <AudioClip ClipName="#FooBundle?num001_01"/>
+      <AudioClip ClipName="#FooBundle?num002_01"/>
+      <AudioClip ClipName="#FooBundle?num003_01"/>
+    </append>
+
+    <!-- player2landSoft: 水中で着地の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landSoft']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landSoft']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landSoft']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landSoft']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2landSoft']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- player2landHard: 水中以外で着地の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landHard']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landHard']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landHard']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2landHard']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2landHard']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerLandThump: 着地の物音 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerLandThump']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerLandThump']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- player2painsm: 小ダメージ（サボテンへの接触など） -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painsm']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painsm']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painsm']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painsm']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painsm']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2painsm']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerFemaleRunLoop: スタミナ不足息切れ -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleRunLoop']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerFemaleRunLoop']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- player2stamina: スタミナがなくなった時（息切れとは別） -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2stamina']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2stamina']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2stamina']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- player2drownpain: 水中で酸素切れからのダメージ -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownpain']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownpain']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownpain']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2drownpain']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerFemaleHungry: 空腹時の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHungry']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerFemaleThirsty: 渇き時の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleThirsty']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleThirsty']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleThirsty']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerFemaleThirsty']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerFemaleHot: 暑い時の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHot']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHot']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHot']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerFemaleHot']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- PlayerFemaleCold: 寒い時の声 -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleCold']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleCold']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='PlayerFemaleCold']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='PlayerFemaleCold']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+  </config>
+
+
+  <!-- おまけ：マイニングヘルメット（miningHelmet）をゲーム開始時に持たせる設定 -->
+  <!--
+  <config name="entityclasses">
+    <remove xpath="/entity_classes/entity_class[@name='playerMale']/property[@name='ItemsOnEnterGame.GameModeSurvivalSP']" />
+    <append xpath="/entity_classes/entity_class[@name='playerMale']" >
+      <property name="ItemsOnEnterGame.GameModeSurvivalSP" value="bottledWater,canChili,firstAidBandage,torch,miningHelmet" />
+    </append>
+  </config>
+  -->
+
+
+  <!-- ここからは、このテンプレート作成作業のメモです。テンプレート利用者は無視してください。
+
+       以下は対応関係確認作業中。
+       どのような状況で鳴るものなのか分かったら教えていただけると有難し。
+  -->
+  <config name="sounds">
+    <!-- underwater_lp -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='underwater_lp']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='underwater_lp']" >
+      <AudioClip ClipName="#FooBundle?num008_01"/>
+    </append>
+    -->
+
+    <!-- player2painlg -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painlg']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painlg']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painlg']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painlg']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2painlg']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2painlg']" >
+      <AudioClip ClipName="#FooBundle?num010_01"/>
+    </append>
+    -->
+
+    <!-- player2drownsurface -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownsurface']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownsurface']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownsurface']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownsurface']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drownsurface']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2drownsurface']" >
+      <AudioClip ClipName="#FooBundle?num005_01"/>
+    </append>
+    -->
+
+    <!-- player2drowndeath -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2drowndeath']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2drowndeath']" >
+      <AudioClip ClipName="#FooBundle?num006_01"/>
+    </append>
+    -->
+
+    <!-- player2sprint1_lp -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2sprint1_lp']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2sprint1_lp']" >
+      <AudioClip ClipName="#FooBundle?num003_01"/>
+    </append>
+    -->
+
+    <!-- player2sick -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2sick']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2sick']" >
+      <AudioClip ClipName="#FooBundle?num004_01"/>
+    </append>
+    -->
+
+    <!-- player2death 死亡時の声（のはず） -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <remove xpath="/Sounds/SoundDataNode[@name='player2death']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player2death']" >
+      <AudioClip ClipName="#FooBundle?num002_01"/>
+    </append>
+    -->
+
+
+    <!-- playerSpawnFemale: スポーン時の声（のはず） -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='playerSpawnFemale']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='playerSpawnFemale']" >
+      <AudioClip ClipName="#FooBundle?num007_01"/>
+    </append>
+    -->
+
+    <!-- player_death_stinger 死亡時の楽曲。確認の邪魔なのでいったん zero に -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='player_death_stinger']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='player_death_stinger']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+    <!-- spawnInStinger スポーン時の楽曲。確認の邪魔なのでいったん zero に -->
+    <!--
+    <remove xpath="/Sounds/SoundDataNode[@name='spawnInStinger']/AudioClip" />
+    <append xpath="/Sounds/SoundDataNode[@name='spawnInStinger']" >
+      <AudioClip ClipName="#FooBundle?zero"/>
+    </append>
+    -->
+
+  </config>
+
+</configs>

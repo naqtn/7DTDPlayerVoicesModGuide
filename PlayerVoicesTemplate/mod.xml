@@ -1,0 +1,14 @@
+<mod>
+  <info>
+    <author>naqtn</author>
+    <name>PlayerVoicesTemplate</name>
+    <description>a template for replace player voices MOD</description>
+
+    <mod_version>1.0</mod_version>
+    <game_version>15.1</game_version>
+    <launcher_version>0.7.0</launcher_version>
+  </info>
+  <config_mods>
+    <import file="Configs\config.xml" />
+  </config_mods>
+</mod>
