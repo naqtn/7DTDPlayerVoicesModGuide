@@ -4,3 +4,4 @@
 - Contains a template files (used with SDX)
 - Documents are written in Japanese.
 - More info : see index.html
+- or see published site: https://naqtn.github.io/7DTDPlayerVoicesModGuide/
