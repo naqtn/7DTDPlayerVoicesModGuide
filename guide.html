@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="7 Days to Die 音声データ差し替えガイド"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2017-01-19 00:54:21 JST"/>
+<meta name="generated" content="2017-01-19 12:52:50 JST"/>
 <meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -149,16 +149,7 @@
 </li>
 <li><a href="#sec-8">8 著作権・ライセンス表示</a></li>
 <li><a href="#sec-9">9 参考情報</a></li>
-<li><a href="#sec-10">10 （編集作業メモ）</a>
-<ul>
-<li><a href="#sec-10-1">10.1 音声の種類（SoundDataNode の name）のさらなる確認</a></li>
-<li><a href="#sec-10-2">10.2 靴音系の調査。</a></li>
-<li><a href="#sec-10-3">10.3 男性キャラ用の記述整備</a></li>
-<li><a href="#sec-10-4">10.4 要確認：複数 AudioClip element の一気削除は書けないのか？</a></li>
-<li><a href="#sec-10-5">10.5 「応用：他のサウンドを書き換える」というような項を執筆</a></li>
-<li><a href="#sec-10-6">10.6 SoundDataNode の他の要素の意味の解析</a></li>
-</ul>
-</li>
+<li><a href="#sec-10">10 （編集作業メモ）</a></li>
 </ul>
 </div>
 </div>
@@ -981,33 +972,30 @@ SDX: Could not find asset 'notexist'
 <a href="http://www14.big.or.jp/~amiami/happy/">http://www14.big.or.jp/~amiami/happy/</a>
 </p>
 <p>
-この文書自身には The MIT License を適用します。
+このガイド文書自身および付属テンプレートの XML ファイルには The MIT License を適用します。
 </p>
-<p>
-Copyright 2017 naqtn (<a href="https://github.com/naqtn">https://github.com/naqtn</a>)
-
-</p>
-<hr/>
-<p>
+<pre class="example">
+Copyright 2017 naqtn (https://github.com/naqtn)
+--------------------------------------------------------------------------------
 Permission is hereby granted, free of charge, to any person obtaining a copy of 
 this software and associated documentation files (the "Software"), to deal in 
 the Software without restriction, including without limitation the rights 
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
 of the Software, and to permit persons to whom the Software is furnished to do 
 so, subject to the following conditions:
-</p>
-<p>
+
 The above copyright notice and this permission notice shall be included in all 
 copies or substantial portions of the Software.
-</p>
-<p>
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
 FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-</p>
+</pre>
+
+
 
 </div>
 
@@ -1049,62 +1037,34 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <p>以下は、この文章自身の作業用メモです。
 文書の状態が他の人にも分かるようにここに記しておきます。
 </p>
+<ul>
+<li>音声の種類（SoundDataNode の name）のさらなる確認
+</li>
+<li>靴音系の調査。
+</li>
+<li>男性キャラ用の記述整備
+</li>
+<li>要確認：複数 AudioClip element の一気削除は書けないのか？ 
+<ul>
+<li>複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
+</li>
+<li>SDX のフォーラムで確認する？
+</li>
+</ul>
 
-</div>
+</li>
+<li>「応用：他のサウンドを書き換える」というような項を執筆
+</li>
+<li>SoundDataNode の他の要素の意味の解析
+</li>
+</ul>
 
-<div id="outline-container-10-1" class="outline-3">
-<h3 id="sec-10-1"><span class="section-number-3">10.1</span> <span class="todo TODO">TODO</span> 音声の種類（SoundDataNode の name）のさらなる確認</h3>
-<div class="outline-text-3" id="text-10-1">
-
-</div>
-
-</div>
-
-<div id="outline-container-10-2" class="outline-3">
-<h3 id="sec-10-2"><span class="section-number-3">10.2</span> <span class="todo TODO">TODO</span> 靴音系の調査。</h3>
-<div class="outline-text-3" id="text-10-2">
-
-</div>
-
-</div>
-
-<div id="outline-container-10-3" class="outline-3">
-<h3 id="sec-10-3"><span class="section-number-3">10.3</span> <span class="todo TODO">TODO</span> 男性キャラ用の記述整備</h3>
-<div class="outline-text-3" id="text-10-3">
-
-</div>
-
-</div>
-
-<div id="outline-container-10-4" class="outline-3">
-<h3 id="sec-10-4"><span class="section-number-3">10.4</span> <span class="todo TODO">TODO</span> 要確認：複数 AudioClip element の一気削除は書けないのか？</h3>
-<div class="outline-text-3" id="text-10-4">
-
-<p>複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
-SDX のフォーラムで確認する？
-</p></div>
-
-</div>
-
-<div id="outline-container-10-5" class="outline-3">
-<h3 id="sec-10-5"><span class="section-number-3">10.5</span> <span class="todo TODO">TODO</span> 「応用：他のサウンドを書き換える」というような項を執筆</h3>
-<div class="outline-text-3" id="text-10-5">
-
-</div>
-
-</div>
-
-<div id="outline-container-10-6" class="outline-3">
-<h3 id="sec-10-6"><span class="section-number-3">10.6</span> <span class="todo TODO">TODO</span> SoundDataNode の他の要素の意味の解析</h3>
-<div class="outline-text-3" id="text-10-6">
-
-</div>
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2017-01-19 00:54:21 JST</p>
+<p class="date">Date: 2017-01-19 12:52:50 JST</p>
 <p class="author">Author: </p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

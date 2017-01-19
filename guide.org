@@ -354,26 +354,26 @@ MOD のスクリプトが一つも入っていないと Mods.dll が見つかり
 付属の MOD テンプレートには「あみたろの声素材工房」の声素材が含まれています。
 http://www14.big.or.jp/~amiami/happy/
 
-この文書自身には The MIT License を適用します。
+このガイド文書自身および付属テンプレートの XML ファイルには The MIT License を適用します。
 
-Copyright 2017 naqtn (https://github.com/naqtn)
---------------------------------------------------------------------------------
-Permission is hereby granted, free of charge, to any person obtaining a copy of 
-this software and associated documentation files (the "Software"), to deal in 
-the Software without restriction, including without limitation the rights 
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
-of the Software, and to permit persons to whom the Software is furnished to do 
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all 
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+: Copyright 2017 naqtn (https://github.com/naqtn)
+: --------------------------------------------------------------------------------
+: Permission is hereby granted, free of charge, to any person obtaining a copy of 
+: this software and associated documentation files (the "Software"), to deal in 
+: the Software without restriction, including without limitation the rights 
+: to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies 
+: of the Software, and to permit persons to whom the Software is furnished to do 
+: so, subject to the following conditions:
+: 
+: The above copyright notice and this permission notice shall be included in all 
+: copies or substantial portions of the Software.
+: 
+: THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+: IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+: FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+: COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+: IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+: CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 * 参考情報
@@ -390,11 +390,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 以下は、この文章自身の作業用メモです。
 文書の状態が他の人にも分かるようにここに記しておきます。
 
-** TODO 音声の種類（SoundDataNode の name）のさらなる確認
-** TODO 靴音系の調査。
-** TODO 男性キャラ用の記述整備
-** TODO 要確認：複数 AudioClip element の一気削除は書けないのか？ 
-複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
-SDX のフォーラムで確認する？
-** TODO 「応用：他のサウンドを書き換える」というような項を執筆
-** TODO SoundDataNode の他の要素の意味の解析
+- 音声の種類（SoundDataNode の name）のさらなる確認
+- 靴音系の調査。
+- 男性キャラ用の記述整備
+- 要確認：複数 AudioClip element の一気削除は書けないのか？ 
+  - 複数書けば消せるのだけど、これだとオリジナルの個数が変化するたびに追従メンテナンスが必要。つらい。
+  - SDX のフォーラムで確認する？
+- 「応用：他のサウンドを書き換える」というような項を執筆
+- SoundDataNode の他の要素の意味の解析

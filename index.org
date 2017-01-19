@@ -1,10 +1,17 @@
+#+OPTIONS: toc:nil
+
 7 Days to Die 音声データ差し替えガイドおよびテンプレート
 
+ゲーム「[[http://store.steampowered.com/video/251570][7 Days to Die]]」のプレイヤーの音声（着地,死亡,etc.した時の声）を差し替える方法と、
+設定サンプル（テンプレート）を作りました。
 
-[[./7DTDPlayerVoicesModGuide.zip][ガイド及びテンプレートを ZIP でダウンロード]]
+* アクセスリンク
+- [[https://naqtn.github.io/7DTDPlayerVoicesModGuide/7DTDPlayerVoicesModGuide.zip][ガイド及びテンプレートを ZIP でダウンロード]]
+- [[./guide.html][ガイドを閲覧]]
+- [[./PlayerVoicesTemplate][テンプレートを閲覧]]
 
-[[./guide.html][ガイドを閲覧]]
+* 連絡先など
+- この文書とテンプレートは https://github.com/naqtn/7DTDPlayerVoicesModGuide で開発しています。
+- 不具合報告などはその [[https://github.com/naqtn/7DTDPlayerVoicesModGuide/issues][issues]] か Twitter https://twitter.com/naqtn にて。
 
-
-
-（ https://twitter.com/naqtn ）
+---
