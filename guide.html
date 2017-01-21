@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="7 Days to Die 音声データ差し替えガイド"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2017-01-19 12:52:50 JST"/>
+<meta name="generated" content="2017-01-21 23:50:54 JST"/>
 <meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -136,9 +136,9 @@
 <ul>
 <li><a href="#sec-7-1">7.1 記述の間違えパターンごとの振る舞い</a>
 <ul>
-<li><a href="#sec-7-1-1">7.1.1 例示：XML ファイルとして整っていない場合</a></li>
+<li><a href="#sec-7-1-1">7.1.1 XML ファイルとして整っていない場合</a></li>
 <li><a href="#sec-7-1-2">7.1.2 AudioClip の ClipName の値間違い</a></li>
-<li><a href="#sec-7-1-3">7.1.3 詳細記述：xpath の値間違え</a></li>
+<li><a href="#sec-7-1-3">7.1.3 xpath の値間違え</a></li>
 <li><a href="#sec-7-1-4">7.1.4 xpath 指定値での記号抜け</a></li>
 </ul>
 </li>
@@ -783,6 +783,7 @@ Unity で wav ファイルを 7DTD が実行時に読み込める形式に変換
 </p>
 <p>
 この AudioClip を複数並べると、発音のたびに複数の音声データの中からひとつがランダムに選ばれて使われます。
+ゼロ個ならば無音になります。
 </p>
 <pre class="example">
     &lt;remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" /&gt;
@@ -799,6 +800,10 @@ ${SDX}/Backups/7 Days To Die/Data/Config/sounds.xml を見ると分かります�
 <p>
 （ xpath の仕様からすると複数回書かなくても良さそうなものなのだが、
 どうやら該当する一つ目のノードにだけ作用するらしい。）
+</p>
+<p>
+上記の記述でジャンプ操作するとこれまでのデフォルトの音声は鳴らずに、
+num001_01, num002_01, num003_01 のいずれか（それぞれ「いち」「に」「さん」という音声）が鳴るようになります。
 </p>
 
 </div>
@@ -873,10 +878,14 @@ XML ファイルの記述を間違えるとエラーになる。
 </div>
 
 <div id="outline-container-7-1-1" class="outline-4">
-<h4 id="sec-7-1-1"><span class="section-number-4">7.1.1</span> <span class="todo TODO">TODO</span> 例示：XML ファイルとして整っていない場合</h4>
+<h4 id="sec-7-1-1"><span class="section-number-4">7.1.1</span> XML ファイルとして整っていない場合</h4>
 <div class="outline-text-4" id="text-7-1-1">
 
+<ul>
+<li id="sec-7-1-1-1"><span class="todo TODO">TODO</span> このケースの例示をする<br/>
 
+</li>
+</ul>
 </div>
 
 </div>
@@ -905,11 +914,15 @@ SDX: Could not find asset 'notexist'
 </div>
 
 <div id="outline-container-7-1-3" class="outline-4">
-<h4 id="sec-7-1-3"><span class="section-number-4">7.1.3</span> <span class="todo TODO">TODO</span> 詳細記述：xpath の値間違え</h4>
+<h4 id="sec-7-1-3"><span class="section-number-4">7.1.3</span> xpath の値間違え</h4>
 <div class="outline-text-4" id="text-7-1-3">
 
 <p>xpath の記述は大文字小文字の違いが考慮されるので注意。
-</p>
+</p><ul>
+<li id="sec-7-1-3-1"><span class="todo TODO">TODO</span> このケースの例示をする<br/>
+
+</li>
+</ul>
 </div>
 
 </div>
@@ -1057,6 +1070,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </li>
 <li>SoundDataNode の他の要素の意味の解析
 </li>
+<li>最初にテンプレートを Mods にコピーしてもらって、切り替えが起こることを体験してもらえるように順番入れ替え。
+</li>
+<li>entityclasses.xml にも playerMale, playerFemale の中にサウンドの記述があるのだが効いてないっぽい。裏を取る。
+</li>
 </ul>
 
 </div>
@@ -1064,7 +1081,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2017-01-19 12:52:50 JST</p>
+<p class="date">Date: 2017-01-21 23:50:54 JST</p>
 <p class="author">Author: </p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

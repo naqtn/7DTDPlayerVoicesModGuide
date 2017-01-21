@@ -283,6 +283,7 @@ Unity で wav ファイルを 7DTD が実行時に読み込める形式に変換
 ご自分の MOD を作る際には自分で作ったバンドル名に（例えば MyBundle）してください。
 
 この AudioClip を複数並べると、発音のたびに複数の音声データの中からひとつがランダムに選ばれて使われます。
+ゼロ個ならば無音になります。
 
 :     <remove xpath="/Sounds/SoundDataNode[@name='player2jump']/AudioClip" />
 の行はデフォルトの AudioClip を取り除く（使用しない）ようにする指定です。
@@ -294,6 +295,9 @@ ${SDX}/Backups/7 Days To Die/Data/Config/sounds.xml を見ると分かります�
 
 （ xpath の仕様からすると複数回書かなくても良さそうなものなのだが、
 どうやら該当する一つ目のノードにだけ作用するらしい。）
+
+上記の記述でジャンプ操作するとこれまでのデフォルトの音声は鳴らずに、
+num001_01, num002_01, num003_01 のいずれか（それぞれ「いち」「に」「さん」という音声）が鳴るようになります。
 
 
 ** 技術背景分かる人向けの説明
@@ -318,7 +322,8 @@ ${SDX}/Backups/7 Days To Die/Data/Config/sounds.xml を見ると分かります�
 XML ファイルの記述を間違えるとエラーになる。
 間違え方によって色々な反応のパターンがある。
 
-*** TODO 例示：XML ファイルとして整っていない場合
+*** XML ファイルとして整っていない場合
+**** TODO このケースの例示をする
 
 *** AudioClip の ClipName の値間違い
 
@@ -328,8 +333,9 @@ ${SDX}/AudioLog.txt にエラーログが出る。
 また、7DTD ゲーム中 F1 キーで表示されるコンソールにもエラー表示される。
 : SDX: Could not find asset 'notexist'
 
-*** TODO 詳細記述：xpath の値間違え
+*** xpath の値間違え
 xpath の記述は大文字小文字の違いが考慮されるので注意。
+**** TODO このケースの例示をする
 
 *** xpath 指定値での記号抜け
 
@@ -398,3 +404,5 @@ http://www14.big.or.jp/~amiami/happy/
   - SDX のフォーラムで確認する？
 - 「応用：他のサウンドを書き換える」というような項を執筆
 - SoundDataNode の他の要素の意味の解析
+- 最初にテンプレートを Mods にコピーしてもらって、切り替えが起こることを体験してもらえるように順番入れ替え。
+- entityclasses.xml にも playerMale, playerFemale の中にサウンドの記述があるのだが効いてないっぽい。裏を取る。

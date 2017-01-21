@@ -8,11 +8,11 @@
 * アクセスリンク
 - [[https://naqtn.github.io/7DTDPlayerVoicesModGuide/7DTDPlayerVoicesModGuide.zip][ガイド及びテンプレートを ZIP でダウンロード]]
 - [[./guide.html][ガイドを閲覧]]
-- [[./PlayerVoicesTemplate][テンプレートを閲覧]]
 
 * 連絡先など
 - この文書とテンプレートは https://github.com/naqtn/7DTDPlayerVoicesModGuide で開発しています。
-- 不具合報告などはその [[https://github.com/naqtn/7DTDPlayerVoicesModGuide/issues][issues]] か Twitter https://twitter.com/naqtn にて。
+- 必須な情報は掲載したつもりではあるもの、まだまだ説明文章の推敲が行き届いていないかとは思います。
+- 不明な点や不具合などありましたら [[https://github.com/naqtn/7DTDPlayerVoicesModGuide/issues][issues]] か Twitter https://twitter.com/naqtn に報告いただくと幸いです。
 - ゲーム中の動作と音名の対応表がまだまだ埋まっていません。判明したものがあったら教えていただけると助かります。表に追加します。
 
 ---
